@@ -12,7 +12,6 @@ http://blackbuck.mobi/
 
 * Lightening talk on the transport layer ⚡
 - Secure configuration of http.ListeAndServeTLS()
-- Secure communication between your servers 
 
 * Secure configuration of http.ListeAndServeTLS()
 Why it matters...
