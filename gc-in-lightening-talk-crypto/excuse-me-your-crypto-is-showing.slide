@@ -1,0 +1,69 @@
+Excuse me, your crypto is showing!
+import "crypto"
+
+January 2015
+Tags: Go, crypto, TLS, HTTPS, security
+
+Siddharth Mathur
+Blackbuck Computing
+smathur@blackbuck.mobi
+http://blackbuck.mobi/
+@s8mathur
+
+* Lightening talk on the transport layer ⚡
+- Secure configuration of http.ListeAndServeTLS()
+- Secure communication between your servers 
+
+* Secure configuration of http.ListeAndServeTLS()
+Why it matters...
+- Is your application server secured?
+- Is your service endpoint safe against malicious clients?
+- Is your user data safe?
+- Many more...
+
+* Secure configuration: It's easy as 1-2-3! (TM)
+- PICK, a good security tool
+- RUN, it on your HTTPS server
+- UNDERSTAND issues flagged
+- FIX issues
+- (rinse and repeat)
+
+* Secure configuration: PICK a good tool
+- Use the scanner at Qualys SSL Labs (https://www.ssllabs.com/ssltest/)
+.image SSL-labs-Start-Page.png
+- Liked by Adam Langley, security maven and key author of Go's "crypto"
+	Ivan Ristic has added a test for this issue to his excellent scanner at SSLLabs.
+	Affected sites will have their grade set to F and will report “This server is vulnerable to .....
+.link https://www.imperialviolet.org/2014/12/08/poodleagain.html Reference
+
+* RUN the tool
+- Be prepared for bad grades
+.image SSL-Labs-C-grade.png
+
+* UNDERSTAND and FIX the issues (#1)
+- POODLE/downgrade attack mitigation
+	// Make a server negotiate only TLS v1.0+ with clients
+	config := &tls.Config{MinVersion: tls.VersionTLS10}
+	s := &http.Server{TLSConfig: config}
+	s.ListenAndServeTLS()
+
+* UNDERSTAND and FIX the issues (#2)
+- Pick modern cipher suites via tls.Config
+	// Work for iOS 6+ Safari, WP 8.x IE 11 and Android 4.4.2+
+	config := &tls.Config{
+		MinVersion:               tls.VersionTLS12,
+		PreferServerCipherSuites: true,
+		CipherSuites: []uint16{tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+			tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+			tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
+			tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
+			tls.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
+			tls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
+		},
+	}
+- Read these references first	
+.link https://wiki.mozilla.org/Security/Server_Side_TLS Mozilla's guide to cipher suites
+.link http://googleonlinesecurity.blogspot.in/2013/11/a-roster-of-tls-cipher-suites-weaknesses.html Google Online Security blog
+
+* Rejoice!
+.image SSL-Labs-A-grade.png
