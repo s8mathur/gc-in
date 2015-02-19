@@ -11,9 +11,9 @@ http://blackbuck.mobi/
 @s8mathur
 
 * Lightening talk on the transport layer ⚡
-- Secure configuration of http.ListeAndServeTLS()
+- Secure configuration of http.ListenAndServeTLS()
 
-* Secure configuration of http.ListeAndServeTLS()
+* Secure configuration of http.ListenAndServeTLS()
 Why it matters...
 - Is your application server secured?
 - Is your service endpoint safe against malicious clients?
