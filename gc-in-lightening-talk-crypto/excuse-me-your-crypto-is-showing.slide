@@ -7,7 +7,6 @@ Tags: Go, crypto, TLS, HTTPS, security
 Siddharth Mathur
 Blackbuck Computing
 smathur@blackbuck.mobi
-http://blackbuck.mobi/
 @s8mathur
 
 * Lightening talk on the transport layer ⚡
@@ -22,7 +21,7 @@ Why it matters...
 
 * Secure configuration: It's easy as 1-2-3! (TM)
 - PICK, a good security tool
-- RUN, it on your HTTPS server
+- RUN, it on your Https server
 - UNDERSTAND issues flagged
 - FIX issues
 - (rinse and repeat)
@@ -47,7 +46,7 @@ Why it matters...
 	s.ListenAndServeTLS()
 
 * UNDERSTAND and FIX the issues (#2)
-- Pick modern cipher suites via tls.Config
+- Modern cipher suites via tls.Config
 	// Work for iOS 6+ Safari, WP 8.x IE 11 and Android 4.4.2+
 	config := &tls.Config{
 		MinVersion:               tls.VersionTLS12,
@@ -58,9 +57,10 @@ Why it matters...
 			tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
 			tls.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
 			tls.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
+			....
 		},
 	}
-- Read these references first	
+- Before changing defaults: read the docs, understand the implications
 .link https://wiki.mozilla.org/Security/Server_Side_TLS Mozilla's guide to cipher suites
 .link http://googleonlinesecurity.blogspot.in/2013/11/a-roster-of-tls-cipher-suites-weaknesses.html Google Online Security blog
 
